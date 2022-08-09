@@ -130,6 +130,22 @@ export const FormSingUp = styled.main`
     width: 100%;
 
     div {
+      position: relative;
+      span {
+        position: absolute;
+        color: red;
+        font-family: "Inter";
+        font-size: 0.8rem;
+        font-weight: 300;
+        top: 84px;
+        left: 126px;
+      }
+      input:focus {
+        outline-style: none;
+      }
+    }
+
+    div {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -257,19 +273,6 @@ export const FormSingUp = styled.main`
       &:hover {
         background: #e83f5b;
       }
-    }
-  }
-
-  .name {
-    position: relative;
-    span {
-      position: absolute;
-      color: white;
-      font-family: "Inter";
-      font-size: 0.8rem;
-      font-weight: 300;
-      top: 81px;
-      left: 163px;
     }
   }
 `;

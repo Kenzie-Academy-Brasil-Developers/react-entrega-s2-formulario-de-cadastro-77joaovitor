@@ -4,7 +4,6 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios";
-import { useEffect } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
@@ -24,11 +23,14 @@ const SingUp = () => {
       .required("Senha obrigatória")
       .matches(
         "^(?=.*[A-Z])(?=.*[!#@$%&])(?=.*[0-9])(?=.*[a-z]).{8,}$",
-        "Sua senha deve conter ao menos: 8 digitos, letra, um numero e um caracter especial"
+        "Senha inválida"
       ),
     confirm_password: yup
       .string()
-      .oneOf([yup.ref("password"), "As duas senhas deve ser iguais"]),
+      .oneOf([yup.ref("password"), ""], "As duas senhas deve ser iguais"),
+    bio: yup.string().required("Campo Obrigatório"),
+    contact: yup.string().required("Campo Obrigatório"),
+    course_module: yup.string().required("Campo Obrigatório"),
   });
 
   const {
@@ -121,6 +123,7 @@ const SingUp = () => {
           <div className="name">
             <label htmlFor="name">Nome</label>
             <input
+              boderColor={errors}
               id="name"
               type="text"
               placeholder="Digite aqui seu nome"
@@ -135,6 +138,7 @@ const SingUp = () => {
               placeholder="Digite aqui seu email"
               {...register("email")}
             />
+            <span>{errors.email?.message}</span>
           </div>
           <div className="password-container">
             <div className="password-icon">
@@ -159,7 +163,8 @@ const SingUp = () => {
               type={showPassword ? "text" : "password"}
               placeholder="Digite aqui sua senha"
               {...register("password")}
-            ></input>
+            />
+            <span>{errors.password?.message}</span>
           </div>
 
           <div>
@@ -169,6 +174,7 @@ const SingUp = () => {
               placeholder="Confirme aqui sua senha"
               {...register("confirm_password")}
             />
+            <span>{errors.confirm_password?.message}</span>
           </div>
           <div>
             <label htmlFor="">Bio</label>
@@ -177,6 +183,7 @@ const SingUp = () => {
               placeholder="Fale um pouco sobre você"
               {...register("bio")}
             />
+            <span>{errors.bio?.message}</span>
           </div>
           <div>
             <label htmlFor="">Contato</label>
@@ -185,6 +192,7 @@ const SingUp = () => {
               placeholder="Opção de contato"
               {...register("contact")}
             />
+            <span>{errors.contact?.message}</span>
           </div>
           <div>
             <label htmlFor="">Selecionar modulo</label>
@@ -201,6 +209,7 @@ const SingUp = () => {
               <option value="Modulo 5">Modulo 5</option>
               <option value="Modulo 6">Modulo 6</option>
             </select>
+            <span>{errors.course_module?.message}</span>
           </div>
           <button type="submit">Cadastrar</button>
         </form>
