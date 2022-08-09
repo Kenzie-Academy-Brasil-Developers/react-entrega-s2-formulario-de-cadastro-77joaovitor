@@ -1,0 +1,12 @@
+:root {
+  --black: #121214;
+}
+.App {
+  background-color: var(--black);
+  width: 100vw;
+  padding-bottom: 2rem;
+}
+
+* {
+  box-sizing: border-box;
+}
