@@ -72,6 +72,7 @@ export const Main = styled.main`
   height: 100vh;
   background-color: #121214;
   margin-top: 3rem;
+
   .user__info {
     width: 100%;
     height: 7rem;

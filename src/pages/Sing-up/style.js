@@ -1,4 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const rightToLeft = keyframes`
+0%{
+  transform: translateX(120%);
+}
+
+95%{
+  transform: translateX(-20px);
+}
+100% {
+  transform: translateX(0);
+}
+`;
 
 export const Header = styled.header`
   @keyframes left {
@@ -138,7 +151,7 @@ export const FormSingUp = styled.main`
         font-size: 0.8rem;
         font-weight: 300;
         top: 84px;
-        left: 126px;
+        right: 0.5rem;
       }
       input:focus {
         outline-style: none;
@@ -284,6 +297,7 @@ export const PopUpSucess = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: ${rightToLeft} 0.8s;
 
   .container {
     position: fixed;
@@ -357,6 +371,9 @@ export const PopUpFalse = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  animation-name: ${rightToLeft};
+  animation-duration: 0.8s;
 
   .container {
     position: fixed;

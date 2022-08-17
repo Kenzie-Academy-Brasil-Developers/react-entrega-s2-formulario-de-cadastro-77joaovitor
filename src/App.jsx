@@ -1,18 +1,21 @@
 import "./App.css";
-import Pages from "./pages";
 import RouterPages from "./Router/Router";
-import AuthProvider, { AuthContext } from "./context/context";
-import Loading from "./loading/loading";
-import { useContext } from "react";
+import AuthProvider from "./context/context";
+import AddProvider from "./context/AddContext";
+import ToastProvider from "./context/ToastContext";
+import ToastContainer from "./components/ToastContainer";
 
 function App() {
-  const { loading, user } = useContext(AuthContext);
-  console.log("ap", loading);
   return (
     <div className="App">
-      <AuthProvider>
-        <RouterPages />
-      </AuthProvider>
+      <ToastProvider>
+        <AuthProvider>
+          <AddProvider>
+            <RouterPages />
+            <ToastContainer />
+          </AddProvider>
+        </AuthProvider>
+      </ToastProvider>
     </div>
   );
 }

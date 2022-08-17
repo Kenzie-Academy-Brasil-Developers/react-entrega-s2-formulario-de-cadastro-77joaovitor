@@ -3,17 +3,24 @@ import { Link } from "react-router-dom";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import axios from "axios";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { FaEye } from "react-icons/fa";
 import { VscError } from "react-icons/vsc";
 import { useState } from "react";
+import { AuthContext } from "../../context/context";
+import { useContext } from "react";
 
 const SingUp = () => {
-  const [modalSucessShow, setModalSucessShow] = useState(false);
-  const [modalFalseShow, setModalFalseShow] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  const {
+    onSubmitFunction,
+    modalSucessShow,
+    modalFalseShow,
+    setModalFalseShow,
+    setModalSucessShow,
+  } = useContext(AuthContext);
 
   const formSchema = yup.object().shape({
     name: yup.string().required("Nome obrigatório"),
@@ -40,46 +47,6 @@ const SingUp = () => {
   } = useForm({
     resolver: yupResolver(formSchema),
   });
-  console.log(errors);
-  function modalFalse() {
-    setModalFalseShow(true);
-    setTimeout(() => {
-      setModalFalseShow(false);
-    }, 4000);
-  }
-
-  function modalTrue() {
-    setModalSucessShow(true);
-    setTimeout(() => {
-      setModalSucessShow(false);
-    }, 4000);
-  }
-  function onSubmitFunction(data) {
-    const {
-      name,
-      email,
-      password,
-      confirmPassword,
-      bio,
-      contact,
-      course_module,
-    } = data;
-    axios
-      .post("https://kenziehub.herokuapp.com/users", {
-        email,
-        password,
-        name,
-        bio,
-        contact,
-        course_module,
-      })
-      .then((response) => {
-        if (response.status === 201) {
-          modalTrue();
-        }
-      })
-      .catch((err) => (err ? modalFalse() : null));
-  }
   return (
     <>
       {modalSucessShow && (
@@ -146,10 +113,10 @@ const SingUp = () => {
                 Senha {<AiOutlineInfoCircle />}
               </label>
               <div className="password-info">
-                <span>
+                <p>
                   Sua senha deve conter ao menos: 8 digitos, letra maiuscula e
                   minuscula, um numero e um caracter especial
-                </span>
+                </p>
               </div>
             </div>
             <FaEye
@@ -202,12 +169,16 @@ const SingUp = () => {
               placeholder="Modulo 1"
               {...register("course_module")}
             >
-              <option value="Modulo 1">Modulo 1</option>
-              <option value="Modulo 2">Modulo 2</option>
-              <option value="Modulo 3">Modulo 3</option>
-              <option value="Modulo 4">Modulo 4</option>
-              <option value="Modulo 5">Modulo 5</option>
-              <option value="Modulo 6">Modulo 6</option>
+              <option value="Modulo 1">
+                Primeiro módulo (Introdução ao Frontend)
+              </option>
+              <option value="Modulo 2">
+                Segundo módulo (Frontend Avançado)
+              </option>
+              <option value="Modulo 3">
+                Terceiro módulo (Introdução ao Backend)
+              </option>
+              <option value="Modulo 4">Quarto módulo (Backend Avançado)</option>
             </select>
             <span>{errors.course_module?.message}</span>
           </div>

@@ -4,9 +4,13 @@ import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AuthContext } from "../../context/context";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { FaEye } from "react-icons/fa";
+import { ToastContext } from "../../context/ToastContext";
 
 const Login = ({ singUp }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
   const formSchema = yup.object().shape({
     email: yup
       .string()
@@ -22,7 +26,6 @@ const Login = ({ singUp }) => {
     resolver: yupResolver(formSchema),
   });
   const { singIn } = useContext(AuthContext);
-  console.log(errors);
   return (
     <>
       <LoginHeader>
@@ -39,7 +42,18 @@ const Login = ({ singUp }) => {
             </div>
             <div>
               <label htmlFor="password">Senha</label>
-              <input type="password" id="password" {...register("password")} />
+              <FaEye
+                id="password"
+                className="showPassword"
+                onClick={() =>
+                  !showPassword ? setShowPassword(true) : setShowPassword(false)
+                }
+              />
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                {...register("password")}
+              />
             </div>
             <button>Login</button>
           </form>

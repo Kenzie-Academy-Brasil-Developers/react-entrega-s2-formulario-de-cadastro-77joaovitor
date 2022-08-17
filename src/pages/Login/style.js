@@ -78,6 +78,7 @@ export const LoginMain = styled.main`
       align-items: center;
       flex-direction: column;
       gap: 1rem;
+      position: relative;
       label {
         margin-left: 2px;
         width: 100%;
@@ -85,6 +86,14 @@ export const LoginMain = styled.main`
         font-family: "Inter";
         font-weight: 300;
         font-size: 0.8rem;
+      }
+      svg {
+        position: absolute;
+        top: 42px;
+        right: 1rem;
+        color: white;
+        opacity: 0.7;
+        font-size: 1rem;
       }
     }
     input {
